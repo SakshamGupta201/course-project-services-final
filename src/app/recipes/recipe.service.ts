@@ -5,7 +5,9 @@ import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Subject } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
@@ -46,5 +48,14 @@ export class RecipeService {
   updateRecipe(index: number, recipe: Recipe) {
     this.recipes[index] = recipe;
     this.recipesChanged.next(this.recipes.slice());
+  }
+
+  deleteRecipe(id: number) {
+    if (id >= 0 && id < this.recipes.length) {
+      this.recipes.splice(id, 1);
+      this.recipesChanged.next([...this.recipes]); // Using the spread operator to create a new array
+    } else {
+      console.error(`Invalid index ${id} for deletion in recipes array.`);
+    }
   }
 }

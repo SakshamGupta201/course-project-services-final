@@ -24,7 +24,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="imagePath">Image URL</label>
-                        <input type="text" id="imagePath" class="form-control" formControlName="imagePath" />
+                        <input type="text" id="imagePath" #imagePath class="form-control" formControlName="imagePath" />
                         <div
                             *ngIf="recipeForm.get('imagePath').hasError('required') && (recipeForm.get('imagePath').touched || recipeForm.get('imagePath').dirty)">
                             <small class="text-danger">Image URL is required</small>
@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="form-group">
-                        <img src="" class="img-responsive" alt="" />
+                        <img [src]="imagePath.value" class="img-responsive" alt="" />
                         <label for="description">Description</label>
                         <textarea id="description" rows="6" class="form-control"
                             formControlName="description"></textarea>
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <button class="btn btn-danger">X</button>
+                            <button class="btn btn-danger" (click)="onDeleteIngredient(i)">X</button>
                         </div>
                     </div>
                 </div>

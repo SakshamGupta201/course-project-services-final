@@ -14,6 +14,7 @@ export class RecipeEditComponent implements OnInit {
   editMode = false;
   recipeForm: FormGroup;
   initialFormValue: Recipe;
+  
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
@@ -75,6 +76,7 @@ export class RecipeEditComponent implements OnInit {
       } else {
         this.recipeService.addRecipe(formData);
       }
+      this.delete();
     }
   }
 
@@ -116,5 +118,9 @@ export class RecipeEditComponent implements OnInit {
 
   delete() {
     this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  onDeleteIngredient(index: number) {
+    return (this.recipeForm.get('ingredients') as FormArray).removeAt(index);
   }
 }
